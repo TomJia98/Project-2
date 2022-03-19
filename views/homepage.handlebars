@@ -1,0 +1,13 @@
+<!--print the shared post,if there's any, with the edit option available, while display a message to request the first post otherwise-->
+
+{{#if posts.length}}
+{{#each posts as |post|}}
+
+<div>
+{{> post-info post }}
+</div>
+
+{{else}}
+<h6 class="pb-4 has-text-centered is-italic">YOUR CONTRIBUTION WILL BE MUCH APPRECIATED</h6>
+{{/each}}
+{{/if}}

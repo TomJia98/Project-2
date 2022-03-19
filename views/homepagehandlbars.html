@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Godzilla Talks Bananna</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+
+<!--print the shared post,if there's any, with the edit option available, while display a message to request the first post otherwise-->
+{{#each posts as |post|}}
+
+<div>
+{{> post-info post }}
+</div>
+
+{{else}}
+<h6 class="pb-4 has-text-centered is-italic">YOUR CONTRIBUTION WILL BE MUCH APPRECIATED</h6>
+{{/each}}
+
+</html>
