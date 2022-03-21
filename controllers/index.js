@@ -1,6 +1,13 @@
 const router = require('express').Router();
-const bodyParser = require('body-parser');
-const app = require('express');
-const { currentDate } = require('../utils/helpers');
-const session = require('express-session');
-const { User, Post, Comment } = require('../models');
+const apiRoutes = require('./api');
+const homeRoutes = require('./home-routes');
+const dashboardRoutes = require('./dashboard-routes');
+
+router.use('/api', apiRoutes);
+router.use('/', homeRoutes);
+router.use('/dashboard', dashboardRoutes);
+router.use((req, res) => {
+  res.status(404).end();
+});
+
+module.exports = router;

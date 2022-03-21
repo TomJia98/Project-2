@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
-const routes = require('./routes');
+const routes = require('./controllers');
 const exphbs = require('express-handlebars');
 
 const sequelize = require('./config/connection');
@@ -34,5 +34,7 @@ app.set('view engine', 'handlebars');
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log('Now listening'));
+  app.listen(PORT, () =>
+    console.log('Now listening on http://localhost:' + PORT)
+  );
 });

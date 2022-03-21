@@ -3,28 +3,37 @@ const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
 
 class User extends Model {
-  checkPassword(loginPw) {
-    return bcrypt.compareSync(loginPw, this.password);
+  checkPassword(password) {
+    return bcrypt.compareSync(password, this.password);
   }
 }
 
 User.init(
   {
+    // define an id column
     id: {
+      // use the special Sequelize DataTypes object provide what type of data it is
       type: DataTypes.INTEGER,
+      // equivalent of SQL "NOT NULL"
       allowNull: false,
+      // instruct that this is the Primary Key
       primaryKey: true,
+      // turn on auto increment
       autoIncrement: true,
     },
-    name: {
+    // define a username column
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
+    // define a password column
     password: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [8],
+        // this means the password must be at least four characters long
+        len: [4],
       },
     },
   },
@@ -43,7 +52,7 @@ User.init(
       },
     },
     sequelize,
-    timestamps: false,
+    timestamps: true,
     freezeTableName: true,
     underscored: true,
     modelName: 'user',

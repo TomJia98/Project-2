@@ -1,3 +1,3 @@
-DROP  IF EXISTS bananna_db;
+DROP DATABASE IF EXISTS banana_db;
 
-CREATE DATABASE bananna_db;
+CREATE DATABASE banana_db;
