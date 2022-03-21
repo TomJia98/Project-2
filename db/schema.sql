@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS banana_db;
+
+CREATE DATABASE banana_db;
