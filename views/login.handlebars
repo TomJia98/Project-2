@@ -1,35 +1,46 @@
-<div class="column">
-    <h2 class="title pb-4">LOGIN</h2><hr>
-    <form class="login-form">
-    <div class="field">
-      <p class="control has-icons-left has-icons-right">
-        <input id="email-login" class="input" type="email" placeholder="Email">
-        <span class="icon is-small is-left">
-          <i class="fas fa-envelope"></i>
+<div class='column'>
+  <h2 class='title pb-4'>LOGIN</h2><hr />
+  <form class='login-form'>
+    <div class='field'>
+      <p class='control has-icons-left has-icons-right'>
+        <input
+          id='username-login'
+          class='input is-success'
+          type='text'
+          placeholder='Text input'
+          value='username'
+        />
+        <span class='icon is-small is-left'>
+          <i class='fas fa-user'></i>
         </span>
-        <span class="icon is-small is-right">
-          <i class="fas fa-check"></i>
-        </span>
-      </p>
-    </div>
-    <div class="field">
-      <p class="control has-icons-left">
-        <input id="password-login" class="input" type="password" placeholder="Password">
-        <span class="icon is-small is-left">
-          <i class="fas fa-lock"></i>
+        <span class='icon is-small is-right'>
+          <i class='fas fa-check'></i>
         </span>
       </p>
     </div>
-    <div class="field">
-      <p class="control">
-        <button class="button is-success">
+    <div class='field'>
+      <p class='control has-icons-left'>
+        <input
+          id='password-login'
+          class='input'
+          type='password'
+          placeholder='Password'
+        />
+        <span class='icon is-small is-left'>
+          <i class='fas fa-lock'></i>
+        </span>
+      </p>
+    </div>
+    <div class='field'>
+      <p class='control'>
+        <button class='button is-success'>
           LOGIN
         </button>
-        <a href="/signup"><button type="button" class="button is-danger">SINGUP</button></a>
+        <a href='/signup'><button type='button' class='button is-danger'>SIGN UP</button></a>
       </p>
     </div>
-    </form>
-    </div>
-    
-    <!-- javascript file-->
-<script src="/javascript/login.js"></script>
+  </form>
+</div>
+
+<!-- javascript file-->
+<script src='/javascript/login.js'></script>
