@@ -1,90 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>DIGILOGS</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
-        <link rel="stylesheet" href="/stylesheets/style.css">
-        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-      </head>
 
-<div class="hero is-success is-fullheight">
-    <header class="hero-head">
-        <nav class="navbar">
-            <div class="container">
-                <div class="navbar-brand">
-                    <a class="navbar-item">
-                     <h1>DIGILOGS</h1>
-                    </a>
-                </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cool Banana</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
 
-                <div id="navbarMenuHeroB" class="navbar-menu">
-                    <div class="navbar-end">
-                        {{#if loggedIn}}
-                        <a href="/" class="navbar-item is-active">
-                         HOME
-                        </a>
-                        <a href="/dashboard" class="navbar-item">
-                         DASHBOARD
-                        </a>
-                        <a href="/dashboard/create/" class="navbar-item">
-                         CREATE POST
-                        </a>
-                        <a id="logout" class="navbar-item">
-                         LOGOUT
-                        </a>
-                        {{else}}
-                        <a href="/" class="navbar-item is-active">
-                         HOME
-                        </a>
-                        <a href="/dashboard" class="navbar-item">
-                         DASHBOARD
-                        </a>
-                        <a href="/login" class="navbar-item">
-                         LOGIN
-                        </a>
-                        {{/if}}    
-                    </div>
-                </div>
-            </div>
+  <div class="wrapper">
+    <header>
+        <h1 class="has-text-black px-3 py-3 has-text-weight-bold">Cool Banana</h1>
+        <nav class="navbar mt-2">
+            {{#if loggedIn}}
+            <a href="/" class="navbar-item is-hoverable pt-1">homepage</a>
+            <a href="/dashboard" class="navbar-item is-hoverable pt-1">dashboard</a>
+            <a href="/dashboard/create/" class="navbar-item is-hoverable pt-1 mr-4">create post</a>
+            <button id="logout" class="button is-danger">logout</button>
+            {{else}}
+            <a href="/" class="navbar-item is-hoverable pt-1">homepage</a>
+            <a href="/login" class="button is-primary">login</a>
+            {{/if}}
         </nav>
     </header>
-  
-    <main class="hero-body ">
-      <div class="container has-text-centered">
-        {{{ body }}}
-      </div>
+
+    <main>
+            {{{ body }}}
     </main>
-  
-    <footer class="hero-foot wrapper">
+
+    <footer class="footer rows pb-2">
         <div class="row-is-full content has-text-centered">
             <p>
-            <a href="/">HOMEPAGE</a>{{#if loggedIn}} | 
-            <a href="/dashboard/">DASHBOARD</a> | 
-            <a href="/dashboard/create/">CREATE NEW POST</a>
+            <a href="/">homepage</a>{{#if loggedIn}} | 
+            <a href="/dashboard/">dashboard</a> | 
+            <a href="/dashboard/create/">create new post</a>
             {{else}}
-             | <a href="/login/">LOGIN</a>
+             | <a href="/login/">login</a>
             {{/if}}
             </p>
         </div>
-        <div class="row-is-full content has-text-centered">
-              <p>
-              <strong>Godzilla Talks Bananna</strong> by <a href="https://github.com/Wratten/Project-2">Team Name</a> | made with <a href="https://bulma.io/">bulma</a> | source code:
-              <a href="https://github.com/Wratten/Project-2"><i class="fab fa-github"></i></a> |  
-               <a href="mailto:chentriangoes@gmail.com"><i class="far fa-envelope"></i></a> | <a href="https://twitter.com/YiTsunChen2">
-                <img alt="Twitter: YiTsunChen2" class="mt-3" src="https://img.shields.io/twitter/follow/YiTsunChen2.svg?style=social" target="_blank" />
-                |  
-               <a href="mailto: daniel.wratten@gmail.com"><i class="far fa-envelope"></i></a> | <a href="Daniel Wratten">
-                <img alt="Twitter: Daniel Wratten" class="mt-3" src="https://img.shields.io/twitter/follow/Daniel Wratten.svg?style=social" target="_blank" />
-                |  
-               <a href="mailto:TomJia1998@gmail.com"><i class="far fa-envelope"></i></a> | <a href="Tom Jia">
-                <img alt="Twitter: Tom Jia" class="mt-3" src="https://img.shields.io/twitter/follow/Tom Jia.svg?style=social" target="_blank" />
-            </p>
-          </div>
+      <div class="row-is-full content has-text-centered">
+    <p>
+      <strong>Cool Banana</strong> by <a href="">Banana</a> | made with <a href="https://bulma.io/">bulma</a> | source code:
+      <a href=""><i class="fab fa-github"></i></a> |  
+       <a href="mailto:"><i class="far fa-envelope"></i></a>
+    </p>
+  </div>
     </footer>
+  </div>
+
 {{#if loggedIn}}
 <script src="/javascript/logout.js"></script>
 {{/if}}
-</div>
+</body>
+
 </html>

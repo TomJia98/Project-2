@@ -1,46 +1,21 @@
-<div class='column'>
-  <h2 class='title pb-4'>LOGIN</h2><hr />
-  <form class='login-form'>
-    <div class='field'>
-      <p class='control has-icons-left has-icons-right'>
-        <input
-          id='username-login'
-          class='input is-success'
-          type='text'
-          placeholder='Text input'
-          value='username'
-        />
-        <span class='icon is-small is-left'>
-          <i class='fas fa-user'></i>
-        </span>
-        <span class='icon is-small is-right'>
-          <i class='fas fa-check'></i>
-        </span>
-      </p>
-    </div>
-    <div class='field'>
-      <p class='control has-icons-left'>
-        <input
-          id='password-login'
-          class='input'
-          type='password'
-          placeholder='Password'
-        />
-        <span class='icon is-small is-left'>
-          <i class='fas fa-lock'></i>
-        </span>
-      </p>
-    </div>
-    <div class='field'>
-      <p class='control'>
-        <button class='button is-success'>
-          LOGIN
-        </button>
-        <a href='/signup'><button type='button' class='button is-danger'>SIGN UP</button></a>
-      </p>
-    </div>
-  </form>
+
+<div class="column">
+<h2 class="title pb-4">login:</h2><hr>
+<form class="login-form">
+  <div>
+    <label for="user-login">username:</label>
+    <input type="text" id="user-login" />
+  </div>
+  <div>
+    <label for="password-login">password:</label>
+    <input type="password" id="password-login" />
+  </div>
+  <div>
+    <button type="submit" class="button is-primary">login</button>
+    <a href="/signup"><button type="button" class="button is-danger">signup</button></a>
+  </div>
+</form>
 </div>
 
 <!-- javascript file-->
-<script src='/javascript/login.js'></script>
+<script src="/javascript/login.js"></script>
