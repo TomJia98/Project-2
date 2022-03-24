@@ -1,44 +1,19 @@
-<div class='field'>
-  <h2 class='title pb-4'>CREATE NEW ACCOUNT:</h2><hr />
-  <form class='signup-form'>
-    <div class='field'>
-      <label class='label' for='username-signup'>USERNAME</label>
-      <div class='control has-icons-left has-icons-right'>
-        <input
-          id='username-signup'
-          class='input is-success'
-          type='text'
-          placeholder='Text input'
-          value='username'
-        />
-        <span class='icon is-small is-left'>
-          <i class='fas fa-user'></i>
-        </span>
-        <span class='icon is-small is-right'>
-          <i class='fas fa-check'></i>
-        </span>
-      </div>
-      <p class='help is-success'>This username is available</p>
-    </div>
-
-    <div class='field'>
-      <label class='label' for='password-signup'>PASSWORD</label>
-      <div class='control'>
-        <input
-          id='password-signup'
-          class='input'
-          type='password'
-          placeholder='Text input'
-        />
-      </div>
-    </div>
-
-    <div class='field'>
-      <div class='control'>
-        <button type='submit' class='button is-link'>SIGN UP</button>
-      </div>
-    </div>
-  </form>
+<div class="column">
+<h2 class="title pb-4">create new account:</h2><hr>
+<form class="signup-form">
+  <div>
+    <label for="username-signup">username:</label>
+    <input type="text" id="username-signup" />
+  </div>
+  <div>
+    <label for="password-signup">password:</label>
+    <input type="password" id="password-signup" />
+  </div>
+  <div>
+    <button type="submit" class="button is-primary">signup</button>
+  </div>
+</form>
 </div>
+
 <!-- javascript file-->
-<script src='/javascript/signup.js'></script>
+<script src="/javascript/signup.js"></script>
