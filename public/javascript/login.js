@@ -1,7 +1,7 @@
 async function loginFormHandler(event) {
   event.preventDefault();
 
-  const username = document.querySelector('#user-login').value.trim();
+  const username = document.querySelector('#username-login').value.trim();
   const password = document.querySelector('#password-login').value.trim();
 
   if (username && password) {
@@ -9,12 +9,13 @@ async function loginFormHandler(event) {
       method: 'post',
       body: JSON.stringify({
         username,
-        password
+        password,
       }),
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json' },
     });
 
     if (response.ok) {
+      alert('you have successfully logged in');
       document.location.replace('/dashboard');
     } else {
       alert(response.statusText);
@@ -22,4 +23,6 @@ async function loginFormHandler(event) {
   }
 }
 
-document.querySelector('.login-form').addEventListener('submit', loginFormHandler);
+document
+  .querySelector('.login-form')
+  .addEventListener('submit', loginFormHandler);
