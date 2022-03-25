@@ -65,42 +65,37 @@ router.post('/', (req, res) => {
     });
   });
 });
-
-// LOGIN
-router.post('/login', (req, res) => {
-  User.findOne({
-    where: {
-      username: req.body.username,
-    },
-  }).then((dbUserData) => {
-    if (!dbUserData) {
-      res.status(400).json({ message: 'No user with that username!' });
-      return;
-    }
-
-    const validPassword = dbUserData.checkPassword(req.body.password);
-
-    if (!validPassword) {
-      res.status(400).json({ message: 'Incorrect password!' });
-      return;
-    }
-
-    req.session.save(() => {
-      // declare session variables
-      req.session.user_id = dbUserData.id;
-      req.session.username = dbUserData.username;
-      req.session.loggedIn = true;
-
-      res.json({ user: dbUserData, message: 'You are now logged in!' });
+//LOGIN
+router.post('/login', async (req, res) => {
+  if (!req.body.username || !req.body.password) {
+    res.render('login', { message: 'Please enter a username and password' });
+  } else {
+    const user = await User.findOne({
+      where: {
+        username: req.body.username,
+      },
     });
-  });
+    if (!user) {
+      res.render('login', { message: 'invalid username or password' });
+    } else {
+      const validPw = user.checkPassword(req.body.password);
+
+      if (!validPw) {
+        res.render('login', { message: 'invalid username or password' });
+      } else {
+        req.session.user_id = user.id;
+        req.session.username = user.username;
+        req.session.loggedIn = true;
+        res.redirect('/');
+      }
+    }
+  }
 });
 
 router.post('/logout', (req, res) => {
   if (req.session.loggedIn) {
-    req.session.destroy(() => {
-      res.status(204).end();
-    });
+    req.session.destroy();
+    res.redirect('/');
   } else {
     res.status(404).end();
   }
