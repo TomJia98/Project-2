@@ -4,6 +4,7 @@
 {{#each posts as |post|}}
 
 <div>
+      <div id="new-post"></div>
 {{> post-info post }}
 </div>
 
@@ -11,3 +12,53 @@
 <h6 class="pb-4 has-text-centered is-italic">YOUR CONTRIBUTION WILL BE MUCH APPRECIATED</h6>
 {{/each}}
 {{/if}}
+
+<script>
+var host = location.origin.replace(/^http/, 'ws');
+var ws = new WebSocket(host);
+var nothing 
+
+ws.onmessage = function (message) {
+   const recievedData = message.data;
+   var reader = new FileReader();
+
+   reader.onload = function(){
+      const jsonReaderResult = JSON.parse(reader.result)
+      console.log(jsonReaderResult);
+      const newpost = document.getElementById("new-post");
+      newpost.innerHTML = jsonReaderResult.title;
+   }
+
+  //const dataFromServer = JSON.parse(message.data);
+  // use document to add posts
+   
+   // newpost.innerHTML = reader.readAsText(recievedData);
+   reader.readAsText(recievedData);
+};
+</script>
+   {{!-- $`
+   <div class="card mb-6">
+  <header class="card-header card-header-title has-background-grey-lighter">
+    
+        <div class="column">
+            <p class=" has-text-primary-light"></p>
+      <a href="/post/${post.id}"  class="has-text-black is-capitalized is-pulled-left">${title} </a></p>
+      </div>
+
+      <div class="column">
+      <span class=""> </span>
+      </div>
+    
+  </header>
+
+    <div class="card-content">
+        <div class="content has-text-justified">
+            /${post.post_content}
+        </div>
+            <div class="is-pulled-right">
+                <b>${user.username}</b> | 
+                ${format_date created_at} | <a href="/post/${id}">${comments.length} ${format_plural "comment" comments.length}</a>
+            </div>
+        
+    </div>
+   ` --}}

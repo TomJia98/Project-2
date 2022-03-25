@@ -25,7 +25,10 @@ router.get('/', (req, res) => {
       },
     ],
   })
-    .then((dbPostData) => res.json(dbPostData))
+    .then((dbPostData) => {
+      console.log(dbPostData);
+      res.json(dbPostData);
+    })
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
@@ -73,7 +76,10 @@ router.post('/', withAuth, (req, res) => {
     post_content: req.body.post_content,
     user_id: req.session.user_id,
   })
-    .then((dbPostData) => res.json(dbPostData))
+    .then((dbPostData) => {
+      console.log('this is the routes data' + dbPostData);
+      res.json(dbPostData.dataValues);
+    })
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);

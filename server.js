@@ -11,6 +11,39 @@ const hbs = exphbs.create({ helpers });
 const session = require('express-session');
 
 const app = express();
+
+// WEB SOCKET STUFF
+// creation of ws server
+const http = require('http');
+const WebSocket = require('ws');
+const server = http.createServer(app);
+
+// web socket
+const wss = new WebSocket.Server({ server });
+
+// send to all clients function
+wss.broadcast = function broadcast(message) {
+  console.log(message);
+  wss.clients.forEach(function each(client) {
+    client.send(message);
+  });
+};
+
+wss.on('connection', (ws) => {
+  console.log('Server has recieved a new connection');
+  //connection is up, let's add a simple simple event
+  ws.on('message', (data) => {
+    console.log(`client has sent us: ${data}`);
+    wss.broadcast(data);
+  });
+  ws.on('close', () => {
+    console.log('Client has disconnected');
+  });
+
+  //send immediatly a feedback to the incoming connection
+  //   ws.send('Hi there, I am a WebSocket server');
+});
+
 const PORT = process.env.PORT || 3001;
 
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -42,5 +75,7 @@ app.use(routes);
 
 // turn on connection to db and server
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log('Now listening on' + PORT));
+  server.listen(PORT, () =>
+    console.log('Now listening on http://localhost:' + PORT)
+  );
 });

@@ -1,10 +1,14 @@
+// WEB SOCKET
+var host = location.origin.replace(/^http/, 'ws');
+var ws = new WebSocket(host);
+
 async function newFormHandler(event) {
   event.preventDefault();
 
   const title = document.querySelector('input[name="post-title"]').value;
   const content = document.querySelector('input[name="post-content"]').value;
 
-  console.log(title, content);
+  //console.log(title, content);
 
   const response = await fetch('/api/posts', {
     method: 'POST',
@@ -18,7 +22,11 @@ async function newFormHandler(event) {
   });
 
   if (response.ok) {
-    document.location.replace('/dashboard');
+    const data = await response.json();
+    // document.location.replace('/dashboard');
+
+    // WEB SOCKET STUFF
+    ws.send(JSON.stringify(data));
   } else {
     alert(response.statusText);
   }
