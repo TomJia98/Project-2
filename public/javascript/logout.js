@@ -11,4 +11,9 @@ async function logout() {
   }
 }
 
+async function like(event) {
+  console.log(event.target);
+}
 document.querySelector('#logout').addEventListener('click', logout);
+
+document.querySelector('.like-react').addEventListener('click', like);

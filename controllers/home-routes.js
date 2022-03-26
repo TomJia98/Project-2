@@ -29,29 +29,26 @@ router.get('/', async (req, res) => {
         },
       ],
     });
-    if (!req.session.loggedIn) {
+    if (!req.session.loggedIn && posts) {
       posts.forEach((element) => {
-        console.log(element);
-        console.log(element.post_content);
-
         if (element.title) {
           const str = toBanana(element.title);
           element.title = str[0];
         }
-        // if (element.post_content) {
-        //   const strObj = toBanana(element.post_content);
+        if (element.post_content) {
+          const strObj = toBanana(element.post_content);
+          element.post_content = strObj[0];
+        }
+      });
+      console.log(posts);
 
-        //   element.post_content = strObj[0];
-        //   console.log(strObj, '=========================');
-        // }
-        //sending the content of the post to the bananariser to be banana'd and saving it back where it was
-        res.render('homepage', {
-          posts,
-          loggedIn: req.session.loggedIn,
-        });
+      //sending the content of the post to the bananariser to be banana'd and saving it back where it was
+      res.render('homepage', {
+        posts,
+        loggedIn: req.session.loggedIn,
       });
     } else {
-      res.render('homepage', {
+      res.render('homepagenotlogged', {
         posts,
         loggedIn: req.session.loggedIn,
       });
