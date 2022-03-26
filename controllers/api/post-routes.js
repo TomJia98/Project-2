@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Post, User, Comment } = require('../../models');
 const sequelize = require('../../config/connection');
 const withAuth = require('../../utils/auth');
+const { wss } = require('../../websockets/websockets');
 
 // get all posts
 router.get('/', (req, res) => {
@@ -62,6 +63,13 @@ router.get('/:id', (req, res) => {
         res.status(404).json({ message: 'No post found with this id' });
         return;
       }
+
+      console.log('aaaa');
+      wss.broadcast(
+        JSON.stringify({
+          post: dbPostData,
+        })
+      );
       res.json(dbPostData);
     })
     .catch((err) => {
