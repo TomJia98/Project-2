@@ -9,7 +9,6 @@ router.get('/', async (req, res) => {
       attributes: ['id', 'title', 'created_at', 'post_content'],
       raw: true,
       include: [
-        // { model: React, attributes: ['like', 'dislike'] },
         {
           model: Comment,
           attributes: [
@@ -98,8 +97,9 @@ router.get('/signup', (req, res) => {
   res.render('signup');
 });
 
-router.get('/post/:id', (req, res) => {
-  Post.findOne({
+router.get('/post/:id', async (req, res) => {
+  const post = await Post.findOne({
+    raw: true,
     where: {
       id: req.params.id,
     },
@@ -118,26 +118,33 @@ router.get('/post/:id', (req, res) => {
         attributes: ['username'],
       },
     ],
-  })
-    .then((dbPostData) => {
-      if (!dbPostData) {
-        res.status(404).json({ message: 'No post found with this id' });
-        return;
-      }
+  });
 
-      // serialize the data
-      const post = dbPostData.get({ plain: true });
+  if (!post) {
+    res.status(404).json({ message: 'No post found with this id' });
+  }
 
-      // pass data to template
-      res.render('single-post', {
-        post,
-        loggedIn: req.session.loggedIn,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+  //getting all the reacts for each post (including in original post dupiplacates the posts based on reacts)
+  const postsLikes = await React.findAll({
+    raw: true,
+    attributes: ['like', 'dislike'],
+    where: { post_id: post.id },
+  });
+  let likeTally = 0;
+  let dislikeTally = 0;
+
+  postsLikes.forEach((ele) => {
+    likeTally = likeTally + ele.like;
+    dislikeTally = dislikeTally + ele.dislike;
+  });
+
+  post['likes'] = likeTally;
+  post['dislikes'] = dislikeTally;
+
+  res.render('single-post', {
+    post,
+    loggedIn: req.session.loggedIn,
+  });
 });
 
 module.exports = router;
