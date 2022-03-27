@@ -40,15 +40,14 @@ router.get('/', async (req, res) => {
           element.post_content = strObj[0];
         }
       });
-      console.log(posts);
-
       //sending the content of the post to the bananariser to be banana'd and saving it back where it was
       res.render('homepage', {
         posts,
         loggedIn: req.session.loggedIn,
       });
     } else {
-      res.render('homepagenotlogged', {
+      console.log(posts);
+      res.render('homepage', {
         posts,
         loggedIn: req.session.loggedIn,
       });
