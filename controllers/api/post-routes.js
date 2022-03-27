@@ -34,22 +34,18 @@ router.get('/', (req, res) => {
 
 router.post('/react', async (req, res) => {
   console.log(req.body, '------------------------------');
-  const findReacts = await Post.findAll({
+  const findReacts = await React.findAll({
     raw: true,
     where: {
-      id: req.body.id,
+      post_id: req.body.id,
+      user_id: req.session.user_id,
     },
-    include: [
-      {
-        model: React,
-        attributes: ['like', 'dislike'],
-      },
-    ],
   });
 
   if (
-    findReacts[0]['reacts.like'] === null &&
-    findReacts[0]['reacts.dislike'] === null
+    findReacts[0] === undefined &&
+    findReacts[0] === undefined
+    //first time user has liked content
   ) {
     console.log('no reacts -----------');
     if (req.body.react) {
@@ -59,7 +55,7 @@ router.post('/react', async (req, res) => {
         post_id: req.body.id,
         like: true,
       });
-      firstLikeReact;
+      firstLikeReact; //add their first like
     } else if (!req.body.react) {
       console.log('adding first dislike');
       const firstDislikeReact = await React.create({
@@ -67,10 +63,45 @@ router.post('/react', async (req, res) => {
         post_id: req.body.id,
         dislike: true,
       });
-      firstDislikeReact;
+      firstDislikeReact; //add their first dislike
+    }
+  } else if (findReacts[0].like) {
+    //if post has been liked already
+    console.log('already liked');
+    if (req.body.react === false) {
+      console.log('changing like to dislike');
+      //post has just been disliked
+      const changeLikeToDislike = await React.update(
+        {
+          like: false,
+          dislike: true,
+        },
+        {
+          where: {
+            id: findReacts[0].id,
+          },
+        }
+      );
+      changeLikeToDislike;
+    }
+  } else if (findReacts.dislike[0]) {
+    console.log('already disliked');
+    if (req.body.react === true) {
+      console.log('changing dislike to like');
+      const changeDislikeToLike = await React.update(
+        {
+          like: true,
+          dislike: false,
+        },
+        {
+          where: {
+            id: findReacts[0].id,
+          },
+        }
+      );
+      changeDislikeToLike;
     }
   }
-
   console.log(findReacts);
   res.send('responce');
 });
