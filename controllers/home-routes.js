@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
-const { Post, User, Comment } = require('../models');
+const { Post, User, Comment, React } = require('../models');
 const { toBanana } = require('../utils/to-banana');
 
 router.get('/', async (req, res) => {
@@ -9,6 +9,7 @@ router.get('/', async (req, res) => {
       attributes: ['id', 'title', 'created_at', 'post_content'],
       raw: true,
       include: [
+        // { model: React, attributes: ['like', 'dislike'] },
         {
           model: Comment,
           attributes: [
@@ -29,6 +30,28 @@ router.get('/', async (req, res) => {
         },
       ],
     });
+    posts.forEach(async (element) => {
+      //getting all the reacts for each post (including in original post dupiplacates the posts based on reacts)
+      const postsLikes = await React.findAll({
+        raw: true,
+        attributes: ['like', 'dislike'],
+        where: { post_id: element.id },
+      });
+      let likeTally = 0;
+      let dislikeTally = 0;
+
+      postsLikes.forEach((ele) => {
+        likeTally = likeTally + ele.like;
+        dislikeTally = dislikeTally + ele.dislike;
+      });
+
+      console.log(likeTally);
+      console.log(dislikeTally);
+      element['likes'] = likeTally;
+      element['dislikes'] = dislikeTally;
+      console.log(element);
+    });
+    console.log(posts);
     if (!req.session.loggedIn && posts) {
       posts.forEach((element) => {
         if (element.title) {
@@ -46,7 +69,6 @@ router.get('/', async (req, res) => {
         loggedIn: req.session.loggedIn,
       });
     } else {
-      console.log(posts);
       res.render('homepage', {
         posts,
         loggedIn: req.session.loggedIn,

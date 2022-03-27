@@ -33,7 +33,6 @@ router.get('/', (req, res) => {
 });
 
 router.post('/react', async (req, res) => {
-  console.log(req.body, '------------------------------');
   const findReacts = await React.findAll({
     raw: true,
     where: {
@@ -41,7 +40,6 @@ router.post('/react', async (req, res) => {
       user_id: req.session.user_id,
     },
   });
-
   if (
     findReacts[0] === undefined &&
     findReacts[0] === undefined
@@ -54,6 +52,7 @@ router.post('/react', async (req, res) => {
         user_id: req.session.user_id,
         post_id: req.body.id,
         like: true,
+        dislike: false,
       });
       firstLikeReact; //add their first like
     } else if (!req.body.react) {
@@ -61,6 +60,7 @@ router.post('/react', async (req, res) => {
       const firstDislikeReact = await React.create({
         user_id: req.session.user_id,
         post_id: req.body.id,
+        like: false,
         dislike: true,
       });
       firstDislikeReact; //add their first dislike
@@ -84,7 +84,7 @@ router.post('/react', async (req, res) => {
       );
       changeLikeToDislike;
     }
-  } else if (findReacts.dislike[0]) {
+  } else if (findReacts[0].dislike) {
     console.log('already disliked');
     if (req.body.react === true) {
       console.log('changing dislike to like');
@@ -102,8 +102,7 @@ router.post('/react', async (req, res) => {
       changeDislikeToLike;
     }
   }
-  console.log(findReacts);
-  res.send('responce');
+  res.send('response');
 });
 
 router.get('/:id', (req, res) => {
