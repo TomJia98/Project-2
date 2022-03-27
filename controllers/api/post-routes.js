@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Post, User, Comment } = require('../../models');
+const { Post, User, Comment, React } = require('../../models');
 // const sequelize = require('../../config/connection');
 const withAuth = require('../../utils/auth');
 
@@ -33,12 +33,45 @@ router.get('/', (req, res) => {
 });
 
 router.post('/react', async (req, res) => {
+  console.log(req.body, '------------------------------');
   const findReacts = await Post.findAll({
+    raw: true,
     where: {
       id: req.body.id,
     },
+    include: [
+      {
+        model: React,
+        attributes: ['like', 'dislike'],
+      },
+    ],
   });
-  findReacts;
+
+  if (
+    findReacts[0]['reacts.like'] === null &&
+    findReacts[0]['reacts.dislike'] === null
+  ) {
+    console.log('no reacts -----------');
+    if (req.body.react) {
+      console.log('adding first like');
+      const firstLikeReact = await React.create({
+        user_id: req.session.user_id,
+        post_id: req.body.id,
+        like: true,
+      });
+      firstLikeReact;
+    } else if (!req.body.react) {
+      console.log('adding first dislike');
+      const firstDislikeReact = await React.create({
+        user_id: req.session.user_id,
+        post_id: req.body.id,
+        dislike: true,
+      });
+      firstDislikeReact;
+    }
+  }
+
+  console.log(findReacts);
   res.send('responce');
 });
 
@@ -78,7 +111,6 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', withAuth, (req, res) => {
-  console.log('----------------------------------------------', req.body);
   Post.create({
     title: req.body.title,
     post_content: req.body.content,

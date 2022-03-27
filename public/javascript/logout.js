@@ -40,5 +40,15 @@ async function like(event) {
 
 document.querySelector('#logout').addEventListener('click', logout);
 
-document.querySelector('.like-react').addEventListener('click', like);
-document.querySelector('.dislike-react').addEventListener('click', dislike);
+let likeReact = document.querySelectorAll('.like-react');
+
+// .addEventListener('click', like);
+let dislikeReact = document.querySelectorAll('.dislike-react');
+// .addEventListener('click', dislike);
+likeReact.forEach((e) => {
+  e.addEventListener('click', like);
+});
+
+dislikeReact.forEach((e) => {
+  e.addEventListener('click', dislike);
+});
