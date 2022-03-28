@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
-const { Post, User, Comment } = require('../models');
+const { Post, User, Comment, React } = require('../models');
 const withAuth = require('../utils/auth');
 
-router.get('/', withAuth, (req, res) => {
-  Post.findAll({
+router.get('/', withAuth, async (req, res) => {
+  const posts = await Post.findAll({
+    raw: true,
     where: {
       // use the ID from the session
       user_id: req.session.user_id,
@@ -24,16 +25,28 @@ router.get('/', withAuth, (req, res) => {
         attributes: ['username'],
       },
     ],
-  })
-    .then((dbPostData) => {
-      // serialize data before passing to template
-      const posts = dbPostData.map((post) => post.get({ plain: true }));
-      res.render('dashboard', { posts, loggedIn: true });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
+  });
+  posts.forEach(async (element) => {
+    //getting all the reacts for each post (including in original post dupiplacates the posts based on reacts)
+    const postsLikes = await React.findAll({
+      raw: true,
+      attributes: ['like', 'dislike'],
+      where: { post_id: element.id },
     });
+    let likeTally = 0;
+    let dislikeTally = 0;
+
+    postsLikes.forEach((ele) => {
+      likeTally = likeTally + ele.like;
+      dislikeTally = dislikeTally + ele.dislike;
+    });
+
+    console.log(likeTally);
+    console.log(dislikeTally);
+    element['likes'] = likeTally;
+    element['dislikes'] = dislikeTally;
+  });
+  res.render('dashboard', { posts, loggedIn: true });
 });
 
 router.get('/edit/:id', withAuth, (req, res) => {
