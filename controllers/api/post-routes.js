@@ -179,8 +179,13 @@ router.put('/:id', withAuth, (req, res) => {
 });
 
 router.delete('/:id', withAuth, async (req, res) => {
-  console.log('deleting post ----------------------------');
   try {
+    const delReacts = await React.destroy({
+      where: {
+        post_id: req.params.id,
+      },
+    });
+    delReacts;
     const delComment = await Comment.destroy({
       where: {
         post_id: req.params.id,
@@ -193,9 +198,9 @@ router.delete('/:id', withAuth, async (req, res) => {
       },
     });
     delPost;
-    res.send('psot deleted');
+    res.send('post deleted');
   } catch (err) {
-    res.send(err);
+    res.status(500).send(err);
   }
 });
 
