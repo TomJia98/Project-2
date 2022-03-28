@@ -1,8 +1,8 @@
 <div class="card mb-6">
-  <header class="card-header card-header-title has-background-grey-lighter">
+  <header id="card-header" class="card-header card-header-title ">
     
         <div class="column">
-            <p class=" has-text-primary-light"></p>
+            <p class="has-text-primary-light"></p>
       <a href="/post/{{id}}"  class="has-text-black is-capitalized is-pulled-left">{{title}} </a></p>
       </div>
 
@@ -16,11 +16,13 @@
         <div class="content has-text-justified">
             {{post_content}}
         </div>
+
         <div class ="is-pulled-left">
 </p><a class="like-react" data-id="{{id}}">{{likes}}🍌</a><a class="dislike-react" data-id="{{id}}">{{dislikes}}🚜</a>
             
         </div>
-            <div class="is-pulled-right">
+            <div class="is-pulled-right m-2">
+
                 <b>{{user.username}}</b> | 
                 {{format_date created_at}} | <a href="/post/{{id}}">{{comments.length}} {{format_plural "comment" comments.length}}</a>
             </div>

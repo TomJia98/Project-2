@@ -1,25 +1,26 @@
 <section>
-  <a href='/dashboard' class='is-pulled-right'> &larr; back to dashboard</a>
-  <h2 class='title'>create new blog post</h2><hr />
+  <a href='/dashboard' class='is-pulled-right user-pw-text'>
+    &larr; back to dashboard</a>
+  <h2 class='title'>holler from the trees</h2><hr />
 
   <form class='new-post-form'>
     <div>
-      <label for='post-title'>title:</label>
+      <label class='user-pw-text mb-2' for='post-title'>title:</label>
       <input
         class='input'
         type='text'
         id='post-title'
         name='post-title'
-        placeholder='insert blog title here'
+        placeholder='insert title here'
       />
     </div>
     <div>
-      <label for='post-content'>content:</label>
+      <label class='user-pw-text mb-2' for='post-content'>content:</label>
       <input
         class='textarea is-large'
         id='post-content'
         name='post-content'
-        placeholder='insert blog content here'
+        placeholder='insert content here'
       />
     </div>
     <button type='submit' class='button is-primary is-pulled-right'>create post</button>
