@@ -11,4 +11,7 @@ module.exports = {
 
     return word;
   },
+  isEmpty(length) {
+    return length === 0;
+  },
 };

@@ -22,7 +22,7 @@ wss.on('connection', (ws) => {
   //connection is up, let's add a simple simple event
   ws.on('message', (data) => {
     console.log(`client has sent us: ${data}`);
-    wss.broadcast(data);
+    wss.broadcast(String(data));
   });
   ws.on('close', () => {
     console.log('Client has disconnected');
