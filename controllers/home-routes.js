@@ -27,22 +27,9 @@ router.get('/', async (req, res) => {
           model: User,
           attributes: ['username'],
         },
-
-      },
-      {
-        model: User,
-        attributes: ['username'],
-      },
-    ],
-  })
-    .then((dbPostData) => {
-      const posts = dbPostData
-        .map((post) => post.get({ plain: true }))
-        .reverse();
       ],
     });
-    const posts = posts1.map((post) => post.get({ plain: true }))
-    .reverse();;
+    const posts = posts1.map((post) => post.get({ plain: true })).reverse();
     console.log(posts);
 
     posts.forEach(async (element) => {

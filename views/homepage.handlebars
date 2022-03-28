@@ -12,7 +12,9 @@
 <h6 class="pb-4 has-text-centered is-italic">YOUR CONTRIBUTION WILL BE MUCH APPRECIATED</h6>
 {{/each}}
 {{/if}}
+
 <script>
+
 var host = location.origin.replace(/^http/, 'ws');
 var ws = new WebSocket(host);
 
@@ -24,6 +26,7 @@ ws.onmessage = function (message) {
        const post = JSON.parse(recievedData);
        console.log(post);
        document.getElementById('new-post').innerHTML = document.getElementById('new-post').innerHTML +
+
        `<div class="card mb-6">
   <header class="card-header card-header-title has-background-grey-lighter">
     
@@ -42,11 +45,16 @@ ws.onmessage = function (message) {
         <div class="content has-text-justified">
             ${post.post_content}
         </div>
+        <div class="is-pulled-left">
+         </p><a class="like-react" data-id="1">0 🍌</a><a class="dislike-react" data-id="1">0 🚜</a>
+         </div>
+
             <div class="is-pulled-right">
-                <b>${post.user_id}</b> | <b>${post.createdAt}</b> |
+                <b>${post.user_id}</b> | <b>${post.createdAt}</b> | <b>0 comments </b>
             </div>
         
     </div>`
+
    }
 
    readdata();
