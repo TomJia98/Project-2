@@ -1,10 +1,10 @@
-# 🍌 Project 2 In Development 🍌
+# 🍌 junglr. 🍌
 
 ![License](https://img.shields.io/badge/License-MIT-blue)
 
 ## Description
 
-    Ook
+    junglr is a message-board style app with a twist. To join the jungle you must 
 
 ## Built With
 
