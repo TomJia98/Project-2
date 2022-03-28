@@ -15,14 +15,13 @@
 <script>
 var host = location.origin.replace(/^http/, 'ws');
 var ws = new WebSocket(host);
-var nothing 
 
 ws.onmessage = function (message) {
    const recievedData = message.data;
    var reader = new FileReader();
 
-   reader.onload = function(){
-       const post = JSON.parse(reader.result);
+   const readdata = function(){
+       const post = JSON.parse(recievedData);
        console.log(post);
        document.getElementById('new-post').innerHTML = document.getElementById('new-post').innerHTML +
        `<div class="card mb-6">
@@ -50,11 +49,11 @@ ws.onmessage = function (message) {
     </div>`
    }
 
+   readdata();
   //const dataFromServer = JSON.parse(message.data);
   // use document to add posts
    
    // newpost.innerHTML = reader.readAsText(recievedData);
-   reader.readAsText(recievedData);
 };
 </script>
    {{!-- $`
