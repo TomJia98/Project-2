@@ -35,7 +35,7 @@
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.15",
     "prettier": "^2.6.0",
-    "ws": "^8.5.0"
+    "ws": "^8.5.0",
     "profanity-util": "^0.2.0",
     "sequelize": "^6.17.0"
   }
