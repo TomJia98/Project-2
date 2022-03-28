@@ -98,8 +98,7 @@ router.get('/signup', (req, res) => {
 });
 
 router.get('/post/:id', async (req, res) => {
-  const post = await Post.findOne({
-    raw: true,
+  const post1 = await Post.findOne({
     where: {
       id: req.params.id,
     },
@@ -120,10 +119,10 @@ router.get('/post/:id', async (req, res) => {
     ],
   });
 
-  if (!post) {
+  if (!post1) {
     res.status(404).json({ message: 'No post found with this id' });
   }
-
+  const post = post1.get({ plain: true });
   //getting all the reacts for each post (including in original post dupiplacates the posts based on reacts)
   const postsLikes = await React.findAll({
     raw: true,
@@ -140,7 +139,7 @@ router.get('/post/:id', async (req, res) => {
 
   post['likes'] = likeTally;
   post['dislikes'] = dislikeTally;
-
+  console.log(post);
   res.render('single-post', {
     post,
     loggedIn: req.session.loggedIn,
