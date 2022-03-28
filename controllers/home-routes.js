@@ -31,7 +31,11 @@ router.get('/', async (req, res) => {
     });
     const posts = posts1.map((post) => post.get({ plain: true })).reverse();
 
-    posts.forEach(async (element) => {
+for (let index = 0; index < posts.length; index++) {
+  const element = posts[index]
+
+    
+    
       //getting all the reacts for each post (including in original post dupiplacates the posts based on reacts)
       const postsLikes = await React.findAll({
         raw: true,
@@ -48,7 +52,7 @@ router.get('/', async (req, res) => {
 
       element['likes'] = likeTally;
       element['dislikes'] = dislikeTally;
-    });
+}
     if (!req.session.loggedIn && posts) {
       posts.forEach((element) => {
         if (element.title) {
