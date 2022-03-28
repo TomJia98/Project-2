@@ -4,8 +4,7 @@ const { Post, User, Comment, React } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', withAuth, async (req, res) => {
-  const posts = await Post.findAll({
-    raw: true,
+  const posts1 = await Post.findAll({
     where: {
       // use the ID from the session
       user_id: req.session.user_id,
@@ -26,6 +25,7 @@ router.get('/', withAuth, async (req, res) => {
       },
     ],
   });
+  const posts = posts1.map((post) => post.get({ plain: true })).reverse();
   posts.forEach(async (element) => {
     //getting all the reacts for each post (including in original post dupiplacates the posts based on reacts)
     const postsLikes = await React.findAll({

@@ -21,10 +21,10 @@ async function newFormHandler(event) {
 
   if (response.ok) {
     const data = await response.json();
-    // document.location.replace('/dashboard');
+    document.location.replace('/dashboard');
 
     // WEB SOCKET STUFF
-    ws.send(JSON.stringify(data));
+    // ws.send(JSON.stringify(data));
   } else {
     alert(response.statusText);
   }

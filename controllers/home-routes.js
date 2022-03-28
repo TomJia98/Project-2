@@ -30,7 +30,6 @@ router.get('/', async (req, res) => {
       ],
     });
     const posts = posts1.map((post) => post.get({ plain: true })).reverse();
-    console.log(posts);
 
     posts.forEach(async (element) => {
       //getting all the reacts for each post (including in original post dupiplacates the posts based on reacts)
@@ -47,13 +46,9 @@ router.get('/', async (req, res) => {
         dislikeTally = dislikeTally + ele.dislike;
       });
 
-      console.log(likeTally);
-      console.log(dislikeTally);
       element['likes'] = likeTally;
       element['dislikes'] = dislikeTally;
-      console.log(element);
     });
-    console.log(posts);
     if (!req.session.loggedIn && posts) {
       posts.forEach((element) => {
         if (element.title) {
@@ -218,7 +213,6 @@ router.get('/post/:id', async (req, res) => {
 
   post['likes'] = likeTally;
   post['dislikes'] = dislikeTally;
-  console.log(post);
   if (!req.session.loggedIn) {
     const str = toBanana(post.title);
     post.title = str[0];
@@ -226,7 +220,6 @@ router.get('/post/:id', async (req, res) => {
     post.post_content = arr[0];
 
     post.comments.forEach((ele) => {
-      console.log(ele.comment_text);
       if (ele.comment_text.length > 3) {
         const newArr = toBanana(ele.comment_text);
         ele.comment_text = newArr[0];

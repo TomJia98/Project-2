@@ -159,8 +159,27 @@ router.post('/', withAuth, (req, res) => {
   })
     .then((dbPostData) => {
       console.log('this is the routes data' + dbPostData);
-      res.json(dbPostData.dataValues);
+
+      return Post.findByPk(dbPostData.id, {
+        include: [
+          {
+            model: User,
+          },
+          {
+            model: Comment,
+          },
+        ],
+      });
     })
+    .then((post) => {
+      // dbPostData.
+      console.log(post.dataValues);
+      console.log('got it');
+      wss.broadcast(JSON.stringify(post.toJSON()));
+      res.json(post.dataValues);
+      // res.redirect(req.baseUrl + '/dashboard');
+    })
+
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);

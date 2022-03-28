@@ -96,7 +96,7 @@ router.post('/logout', (req, res) => {
   console.log(req.session.loggedIn);
   if (req.session.loggedIn) {
     req.session.destroy();
-    res.render('login'); //i have no idea why this works, but this now correctly destroys the session and redirects to the homepage
+    res.status(200).send('user logged out'); //res.render('login'); //i have no idea why this works, but this now correctly destroys the session and redirects to the homepage
   } else {
     res.status(404).end();
   }
