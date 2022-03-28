@@ -7,10 +7,11 @@ const helpers = require('./utils/helpers');
 
 const exphbs = require('express-handlebars');
 const hbs = exphbs.create({ helpers });
-
 const session = require('express-session');
 
-const app = express();
+const app = require('./express-app');
+const { server } = require('./websockets/websockets');
+
 const PORT = process.env.PORT || 3001;
 
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -42,5 +43,7 @@ app.use(routes);
 
 // turn on connection to db and server
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log('Now listening on' + PORT));
+  server.listen(PORT, () =>
+    console.log('Now listening on http://localhost:' + PORT)
+  );
 });

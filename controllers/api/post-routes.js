@@ -2,8 +2,9 @@ const router = require('express').Router();
 const { Post, User, Comment, React } = require('../../models');
 // const sequelize = require('../../config/connection');
 const withAuth = require('../../utils/auth');
+const { wss } = require('../../websockets/websockets');
 
-// get all users
+// get all posts
 router.get('/', (req, res) => {
   console.log('======================');
   Post.findAll({
@@ -25,7 +26,10 @@ router.get('/', (req, res) => {
       },
     ],
   })
-    .then((dbPostData) => res.json(dbPostData))
+    .then((dbPostData) => {
+      console.log(dbPostData);
+      res.json(dbPostData);
+    })
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
@@ -132,6 +136,13 @@ router.get('/:id', (req, res) => {
         res.status(404).json({ message: 'No post found with this id' });
         return;
       }
+
+      console.log('aaaa');
+      wss.broadcast(
+        JSON.stringify({
+          post: dbPostData,
+        })
+      );
       res.json(dbPostData);
     })
     .catch((err) => {
@@ -146,7 +157,10 @@ router.post('/', withAuth, (req, res) => {
     post_content: req.body.content,
     user_id: req.session.user_id,
   })
-    .then((dbPostData) => res.json(dbPostData))
+    .then((dbPostData) => {
+      console.log('this is the routes data' + dbPostData);
+      res.json(dbPostData.dataValues);
+    })
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);

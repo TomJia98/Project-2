@@ -27,9 +27,22 @@ router.get('/', async (req, res) => {
           model: User,
           attributes: ['username'],
         },
+
+      },
+      {
+        model: User,
+        attributes: ['username'],
+      },
+    ],
+  })
+    .then((dbPostData) => {
+      const posts = dbPostData
+        .map((post) => post.get({ plain: true }))
+        .reverse();
       ],
     });
-    const posts = posts1.map((post) => post.get({ plain: true }));
+    const posts = posts1.map((post) => post.get({ plain: true }))
+    .reverse();;
     console.log(posts);
 
     posts.forEach(async (element) => {
@@ -66,6 +79,7 @@ router.get('/', async (req, res) => {
         }
       });
       //sending the content of the post to the bananariser to be banana'd and saving it back where it was
+
       res.render('homepage', {
         posts,
         loggedIn: req.session.loggedIn,
