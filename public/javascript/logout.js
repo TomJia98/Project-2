@@ -21,6 +21,7 @@ async function dislike(event) {
 
   if (post.ok) {
     console.log('likes updated');
+    location.reload();
   }
 }
 
@@ -35,6 +36,7 @@ async function like(event) {
 
   if (post.ok) {
     console.log('like updated');
+    location.reload();
   }
 }
 
