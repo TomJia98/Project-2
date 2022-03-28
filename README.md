@@ -1,10 +1,11 @@
-# 🍌 Project 2 In Development 🍌
+# 🍌 junglr. 🍌
 
 ![License](https://img.shields.io/badge/License-MIT-blue)
 
 ## Description
 
-    Ook
+    junglr is a message-board style app with a twist. To join the jungle you must become a monkey (sign up & log in), how else do you expect to speak to your fellow primates (read, create & comment on posts)? 
+    All posts & comments will be encrypted with "monkey-speak" until the user is logged in, where they will become plain English. React to posts with a banana (thumbs up) or bulldozer (thumbs down) or comment on posts to share your monkey-brained thoughts.
 
 ## Built With
 
@@ -19,6 +20,8 @@
 - bcrypt
 - express-session
 - express-handlebars
+- web sockets
+- profanity-util
 ```
 
 | Table of Contents                 |
@@ -34,9 +37,9 @@
 
    Clone the repo
 
-    git clone https://github.com/Wratten/ 
+    git clone https://github.com/Wratten/
     
-   Install dependencies 
+   Install dependencies
    
     npm install
 
@@ -44,12 +47,12 @@
 
 To run this app,
 
-    npm run seed
-
-    node server.js
-
-The API endpoints can be tested using Insomnia, Postman or another route testing application.
-
+    open the terminal and navigate into /db folder
+    open sequelize and log in
+    run the command "source schema.sql"
+    run the command "exit"
+    navigate back to the main folder
+    npm run watch server.js
 
 ## Contributions
 
@@ -63,10 +66,6 @@ The API endpoints can be tested using Insomnia, Postman or another route testing
 Tom Jia | [GitHub](https://github.com/TomJia98)
 
 Yi-Tsun Chen | [Github](https://github.com/chentriangoes)
-
-## Tests
-
-     No tests have been developed for this app.
 
 ## License
 
