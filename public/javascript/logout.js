@@ -1,4 +1,5 @@
 async function logout() {
+  event.preventDefault();
   const response = await fetch('/api/users/logout', {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
@@ -21,6 +22,7 @@ async function dislike(event) {
 
   if (post.ok) {
     console.log('likes updated');
+    document.location.reload();
   }
 }
 
@@ -35,6 +37,7 @@ async function like(event) {
 
   if (post.ok) {
     console.log('like updated');
+    document.location.reload();
   }
 }
 
